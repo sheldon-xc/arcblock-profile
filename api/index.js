@@ -6,6 +6,8 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const fallback = require('@blocklet/sdk/lib/middlewares/fallback');
 
+const responseHandler = require('./middlewares/response-handler');
+
 const { name, version } = require('../package.json');
 const logger = require('./libs/logger');
 
@@ -16,9 +18,11 @@ app.use(cookieParser());
 app.use(express.json({ limit: '1 mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1 mb' }));
 app.use(cors());
+app.use(responseHandler);
 
 const router = express.Router();
 router.use('/api', require('./routes'));
+
 app.use(router);
 
 const isProduction = process.env.NODE_ENV === 'production' || process.env.ABT_NODE_SERVICE_ENV === 'production';

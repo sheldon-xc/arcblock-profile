@@ -4,6 +4,8 @@
 .pnp
 .pnp.js
 .DS_Store
+.blocklet-server
+.vscode
 node_modules
 
 # testing
